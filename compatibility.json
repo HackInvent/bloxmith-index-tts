@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "index_tts",
+  "block_version": "0.1.0",
+  "maintained_by": "HackInvent",
+  "source": {
+    "algorithm": "block-source-v1",
+    "sha256": "64a352b5b36a998b27ea53681e05472d78c3a5bc420cbdf6ee7bc0ba41e0c1d4"
+  },
+  "bloxsmith_compatibility": [
+    "1.0.9"
+  ],
+  "tested_with_bloxsmith": "1.0.9",
+  "validations": [
+    {
+      "bloxsmith_version": "1.0.9",
+      "framework_commit": "f1a87f6369d2acfb8be41d23ea849384cd461c86",
+      "framework_source_sha256": "66e36a13fd9a23a0a0576ec81552d6e479671db6db9b8692cc7486c5aac4f3b8",
+      "tested_at": "2026-10-05T05:47:20.907165+00:00",
+      "status": "passed",
+      "installation_mode": "bundled",
+      "suite_paths": [
+        "tests/F5.01_index_tts.py",
+        "tests/F5.02_index_tts_runtime.py",
+        "tests/F8.01_index_tts_ui.py"
+      ],
+      "suite_count": 3,
+      "report_sha256": "5ee0904e7b8c2028e97d56438eef29ba7d28102ba058ef5036afa892f1ca4f25"
+    }
+  ]
+}

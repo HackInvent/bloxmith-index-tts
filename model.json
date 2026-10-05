@@ -1,0 +1,167 @@
+{
+  "kind": "index_tts",
+  "version": "0.1.0",
+  "title": "IndexTTS-2",
+  "description": "Synthesize complete speech files locally with IndexTTS-2 and a required voice reference.",
+  "repository_url": "https://github.com/HackInvent/bloxmith-index-tts",
+  "bloxsmith_compatibility": ["1.0.9"],
+  "tested_with_bloxsmith": "1.0.9",
+  "prerequisites": [
+    {
+      "type": "executable",
+      "name": "ffmpeg"
+    },
+    {
+      "type": "manual",
+      "name": "Linux, Python 3.10/3.11 dedicated inference environment, prepared IndexTTS-2 and auxiliary weights, and a voice reference. Upstream Bilibili and non-commercial dependency terms apply."
+    }
+  ],
+  "locales": {
+    "en": "locales/en.json",
+    "fr": "locales/fr.json"
+  },
+  "ports": {
+    "inputs": [
+      {
+        "id": 1,
+        "name": "text",
+        "title": "Text",
+        "accepts": [
+          "text/plain",
+          "application/json",
+          "message/*"
+        ],
+        "multiplicity": "one",
+        "required": false,
+        "execution_requirement": "not_required_for_execution"
+      },
+      {
+        "id": 2,
+        "name": "command",
+        "title": "Interrupt",
+        "accepts": [
+          "application/json"
+        ],
+        "multiplicity": "one",
+        "required": false,
+        "execution_requirement": "not_required_for_execution"
+      }
+    ],
+    "outputs": [
+      {
+        "id": 1,
+        "name": "audio_file",
+        "title": "Complete audio file",
+        "emits": [
+          "file/path",
+          "text/plain",
+          "message/*"
+        ],
+        "multiplicity": "many"
+      },
+      {
+        "id": 2,
+        "name": "metadata",
+        "title": "Audio metadata",
+        "emits": [
+          "application/json",
+          "message/*"
+        ],
+        "multiplicity": "many"
+      },
+      {
+        "id": 3,
+        "name": "status",
+        "title": "Status",
+        "emits": [
+          "application/json",
+          "message/*"
+        ],
+        "multiplicity": "many"
+      }
+    ]
+  },
+  "config": {
+    "asset_directory": "",
+    "environment_python": "",
+    "reference_audio": "",
+    "output_directory": "",
+    "device": "cuda:0",
+    "precision": "float32",
+    "emotion": "reference",
+    "emotion_strength": 0.8,
+    "format": "ogg_opus",
+    "temperature": 0.8,
+    "top_k": 30,
+    "top_p": 0.8,
+    "repetition_penalty": 10,
+    "threads": 2,
+    "max_audio_sec": 60,
+    "max_mel_tokens": 1500,
+    "max_segment_tokens": 120,
+    "max_segments": 16,
+    "interval_silence_ms": 200,
+    "max_text_chars": 1000,
+    "timeout_sec": 240,
+    "memory_limit_mib": 0,
+    "min_available_ram_mib": 16384,
+    "max_pending": 4
+  },
+  "port_capabilities": {
+    "can_add_inputs": false,
+    "can_add_outputs": false
+  },
+  "runtime": {
+    "initial_state": "waiting",
+    "runtime_executable": true,
+    "active_worker": true,
+    "centralized_executor": "generic",
+    "centralized_dependency_mode": "any_event",
+    "file_browser": true,
+    "active_execution_policy": "on_each_event"
+  },
+  "ui_assets": {
+    "modal": [
+      {
+        "kind": "css",
+        "path": "assets/css/properties.css"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/properties.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/settings.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/block_modal.js"
+      }
+    ],
+    "inspector_panel": [
+      {
+        "kind": "css",
+        "path": "assets/css/properties.css"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/properties.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/settings.js"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/inspector_panel.js"
+      }
+    ],
+    "node_card": [
+      {
+        "kind": "css",
+        "path": "assets/css/node_card.css"
+      }
+    ]
+  }
+}

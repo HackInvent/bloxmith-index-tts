@@ -1,0 +1,9 @@
+# Dedicated Linux Python 3.10/3.11 environment; never install into BloxSmith.
+# Select matching Torch/torchaudio CPU or CUDA wheels for the actual host.
+# The official SDK carries its own runtime dependencies and Bilibili license.
+torch==2.8.0
+torchaudio==2.8.0
+indextts @ git+https://github.com/index-tts/index-tts@d9e41aac89fd00b3d71497fddb287b7f24613712
+transformers==4.52.1
+accelerate==1.8.1
+WeTextProcessing==1.2.0

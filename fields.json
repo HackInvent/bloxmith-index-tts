@@ -1,0 +1,230 @@
+[
+  {
+    "key": "asset_directory",
+    "type": "directory",
+    "label": "Model asset directory",
+    "help": "Prepare the pinned 7.66 GB IndexTTS-2 and auxiliary snapshots. Runtime only reads verified local files; no downloads."
+  },
+  {
+    "key": "environment_python",
+    "type": "file",
+    "label": "Inference Python executable",
+    "help": "Dedicated Linux Python 3.10/3.11 environment with the pinned Index SDK. Empty uses the app interpreter, only if compatible; nothing is installed automatically."
+  },
+  {
+    "key": "reference_audio",
+    "type": "file",
+    "label": "Voice reference audio",
+    "help": "Required at synthesis time: finalized, non-silent local clip of 0.5–15 seconds, at most 32 MiB. Use only a voice you are authorized to reproduce."
+  },
+  {
+    "key": "output_directory",
+    "type": "directory",
+    "label": "Completed audio directory",
+    "help": "Empty uses this node’s persistent audio directory. Unique names; no overwrites or automatic deletion."
+  },
+  {
+    "key": "emotion",
+    "type": "select",
+    "options": [
+      "reference",
+      "happy",
+      "angry",
+      "sad",
+      "afraid",
+      "disgusted",
+      "melancholic",
+      "surprised",
+      "calm"
+    ],
+    "label": "Emotion",
+    "help": "Keep the reference delivery or request one of the model’s eight emotion directions. English and Chinese only; no text-to-emotion model."
+  },
+  {
+    "key": "device",
+    "type": "select",
+    "options": [
+      "cuda:0",
+      "cpu"
+    ],
+    "label": "Inference device",
+    "help": "CUDA is recommended for interactive use. CPU is explicit and slow; unavailable CUDA never silently falls back."
+  },
+  {
+    "key": "format",
+    "type": "select",
+    "options": [
+      "ogg_opus",
+      "wav"
+    ],
+    "label": "Completed file format",
+    "help": "Complete Ogg/Opus at 48 kHz or PCM WAV at 22.05 kHz. No direct live audio stream."
+  },
+  {
+    "key": "temperature",
+    "type": "number",
+    "min": 0.1,
+    "max": 2,
+    "advanced": true,
+    "label": "Temperature",
+    "help": "Official model sampling control. Higher values increase variation; not a voice identity selector."
+  },
+  {
+    "key": "top_k",
+    "type": "integer",
+    "min": 1,
+    "max": 500,
+    "advanced": true,
+    "label": "Top-k sampling",
+    "help": "Number of candidate audio tokens retained by the official sampler."
+  },
+  {
+    "key": "precision",
+    "type": "select",
+    "options": [
+      "float32",
+      "float16"
+    ],
+    "advanced": true,
+    "label": "Numeric precision",
+    "help": "Float32 on CPU or CUDA. Float16 requires CUDA; CPU plus float16 is refused rather than silently changed."
+  },
+  {
+    "key": "threads",
+    "type": "integer",
+    "min": 1,
+    "max": 16,
+    "advanced": true,
+    "label": "CPU threads",
+    "help": "Bound native CPU parallelism in the owned inference process."
+  },
+  {
+    "key": "max_audio_sec",
+    "type": "integer",
+    "min": 1,
+    "max": 90,
+    "advanced": true,
+    "label": "Maximum audio duration (seconds)",
+    "help": "Reject the entire result if it exceeds this duration. Each segment must also end naturally before its token limit."
+  },
+  {
+    "key": "max_text_chars",
+    "type": "integer",
+    "min": 1,
+    "max": 2000,
+    "advanced": true,
+    "label": "Maximum text characters",
+    "help": "Reject oversized text. The model also enforces its own combined text/audio token window."
+  },
+  {
+    "key": "timeout_sec",
+    "type": "integer",
+    "min": 1,
+    "max": 240,
+    "advanced": true,
+    "label": "Total request deadline (seconds)",
+    "help": "Verification, model loading, synthesis and publication must finish within this deadline; at most 240 seconds for managed execution."
+  },
+  {
+    "key": "memory_limit_mib",
+    "type": "integer",
+    "min": 0,
+    "max": 262144,
+    "advanced": true,
+    "label": "Process address-space limit (MiB)",
+    "help": "Optional Linux virtual-address ceiling: 0 disables it; otherwise at least 4096 MiB. CUDA can reserve large virtual ranges. Not a RAM/VRAM reservation."
+  },
+  {
+    "key": "min_available_ram_mib",
+    "type": "integer",
+    "min": 8192,
+    "max": 262144,
+    "advanced": true,
+    "label": "Required available RAM (MiB)",
+    "help": "Refuse loading below this available-RAM threshold. Default 16 GiB; this check does not reserve memory or guarantee GPU capacity."
+  },
+  {
+    "key": "max_pending",
+    "type": "integer",
+    "min": 0,
+    "max": 16,
+    "advanced": true,
+    "label": "Pending request limit",
+    "help": "Active Runtime only. Zero rejects new text while busy. Interrupt cancels the current job and clears earlier pending requests."
+  },
+  {
+    "key": "top_p",
+    "type": "number",
+    "min": 0.01,
+    "max": 1,
+    "advanced": true,
+    "label": "Top-p sampling",
+    "help": "Nucleus-sampling probability for the main audio-code generator."
+  },
+  {
+    "key": "repetition_penalty",
+    "type": "number",
+    "min": 1,
+    "max": 20,
+    "advanced": true,
+    "label": "Repetition penalty",
+    "help": "Official Index autoregressive-code repetition penalty. Default 10; not a guarantee against repeated speech."
+  },
+  {
+    "key": "emotion_strength",
+    "type": "number",
+    "min": 0,
+    "max": 1,
+    "advanced": true,
+    "label": "Requested emotion strength",
+    "help": "Used only when choosing a specific emotion. Zero uses the reference conditioning; exact perceived expression is not guaranteed.",
+    "when": {
+      "emotion": [
+        "happy",
+        "angry",
+        "sad",
+        "afraid",
+        "disgusted",
+        "melancholic",
+        "surprised",
+        "calm"
+      ]
+    }
+  },
+  {
+    "key": "max_mel_tokens",
+    "type": "integer",
+    "min": 16,
+    "max": 1500,
+    "advanced": true,
+    "label": "Maximum audio tokens per segment",
+    "help": "A segment must end with the native stop token. Exhaustion rejects the whole file; nothing is cut and labelled complete."
+  },
+  {
+    "key": "max_segment_tokens",
+    "type": "integer",
+    "min": 20,
+    "max": 120,
+    "advanced": true,
+    "label": "Text tokens per segment",
+    "help": "Official tokenizer’s segment target; punctuation grouping may produce a longer segment. The total number of segments is separately bounded."
+  },
+  {
+    "key": "max_segments",
+    "type": "integer",
+    "min": 1,
+    "max": 32,
+    "advanced": true,
+    "label": "Maximum segments",
+    "help": "Reject text requiring more segments before audio generation. Every expected segment must finish before publication."
+  },
+  {
+    "key": "interval_silence_ms",
+    "type": "integer",
+    "min": 0,
+    "max": 1000,
+    "advanced": true,
+    "label": "Silence between segments (ms)",
+    "help": "Silence inserted by the official SDK between synthesized text segments; included in the total audio duration."
+  }
+]
