@@ -1,6 +1,6 @@
 # IndexTTS-2
 
-![IndexTTS-2](media/thumbnail.webp)
+[![IndexTTS-2](media/thumbnail.webp)](media/cover.png)
 
 <!-- block-metadata:start -->
 [![Block version: 0.1.0](https://img.shields.io/badge/block-0.1.0-blue)](model.json)
